@@ -7,3 +7,7 @@ exports.index = asyncHandler(async (req, res) => {
     body: "This is the home page",
   });
 });
+
+exports.create = asyncHandler(async (req, res) => {
+  res.render("create");
+});
