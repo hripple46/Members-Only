@@ -6,4 +6,6 @@ router.get("/", indexController.index);
 
 router.get("/user/create", indexController.create);
 
+router.post("/user/create", indexController.createUser);
+
 module.exports = router;

@@ -7,8 +7,12 @@
     <title><%= title %></title>
   </head>
   <body>
+    <% if (!user) { %>
     <a href="/user/create"> <button>Create Account</button></a>
     <h1><%= title %></h1>
     <p><%= body %></p>
+    <% } else { %>
+    <h1>Greetings, <%= user.firstName %></h1>
+    <% } %>
   </body>
 </html>

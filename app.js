@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const session = require("express-session");
@@ -9,6 +10,8 @@ const indexRouter = require("./routes/index");
 var logger = require("morgan");
 
 const app = express();
+
+mongoose.connect(process.env.MONGO_URL);
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
