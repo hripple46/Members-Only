@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const indexController = require("../controllers/indexController");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const User = require("../models/user");
 
 router.get("/", indexController.index);
 
@@ -10,6 +13,6 @@ router.post("/user/create", indexController.createUser);
 
 router.get("/user/login", indexController.login);
 
-router.post("/user/login", indexController.login);
+router.post("/user/loginAuth");
 
 module.exports = router;
