@@ -1,7 +1,9 @@
 const asyncHandler = require("express-async-handler");
 const User = require("../models/user");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
 
-exports.index = asyncHandler(async (req, res) => {
+exports.index = asyncHandler(async (req, res, next) => {
   console.log("indexController.index");
   res.render("index", {
     title: "Message Board",
@@ -22,5 +24,9 @@ exports.createUser = asyncHandler(async (req, res) => {
     password: req.body.password,
   });
   await user.save();
-  res.render("index", { title: "Member", user: user });
+  res.redirect("/");
 });
+
+exports.login = async (req, res, next) => {
+  res.render("login");
+};
