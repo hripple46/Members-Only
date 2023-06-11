@@ -1,5 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const User = require("../models/user");
+const session = require("express-session");
+
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const express = require("express");
@@ -67,7 +69,7 @@ exports.loginAuth = (req, res, next) => {
   passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/",
-  });
+  })(req, res, next);
 };
 
 exports.logout = (req, res, next) => {

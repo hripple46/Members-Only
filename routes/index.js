@@ -13,7 +13,7 @@ router.post("/user/create", indexController.createUser);
 
 router.get("/user/login", indexController.login);
 
-router.post("/user/loginAuth");
+router.post("/user/login", indexController.loginAuth);
 
 router.get("/user/logout", indexController.logout);
 

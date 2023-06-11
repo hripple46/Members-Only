@@ -24,13 +24,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
-app.post(
-  "/user/login",
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/",
-  })
-);
 app.use("/", indexRouter);
 
 app.listen(3000, () => {
