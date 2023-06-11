@@ -78,3 +78,7 @@ exports.logout = (req, res, next) => {
     res.redirect("/");
   });
 };
+
+exports.newMessage = asyncHandler(async (req, res, next) => {
+  res.render("newMessage", { user: req.user });
+});
