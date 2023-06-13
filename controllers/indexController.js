@@ -84,3 +84,7 @@ exports.logout = (req, res, next) => {
 exports.newMessage = asyncHandler(async (req, res, next) => {
   res.render("newMessage", { user: req.user });
 });
+
+exports.createMessage = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+});

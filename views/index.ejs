@@ -20,7 +20,9 @@
 
     <p>Membership Level: <%= user.memberStatus %></p>
     <a href="/user/logout"> <button>Logout</button></a>
-    <a href="/user/newmessage"> <button>Create Message</button></a>
+    <a href="/user/<%= user._id %>/newmessage">
+      <button>Create Message</button></a
+    >
     <% } %>
   </body>
 </html>

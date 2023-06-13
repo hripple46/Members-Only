@@ -17,6 +17,8 @@ router.post("/user/login", indexController.loginAuth);
 
 router.get("/user/logout", indexController.logout);
 
-router.get("/user/newmessage", indexController.newMessage);
+router.get("/user/:id/newmessage", indexController.newMessage);
+
+router.post("/user/:id/newmessage", indexController.createMessage);
 
 module.exports = router;
