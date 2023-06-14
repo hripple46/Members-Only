@@ -21,4 +21,8 @@ router.get("/user/:id/newmessage", indexController.newMessage);
 
 router.post("/user/:id/newmessage", indexController.createMessage);
 
+router.get("/user/:id/updateMembership", indexController.updateMembership);
+
+router.post("/user/:id/updateMembership", indexController.updateMembershipPost);
+
 module.exports = router;

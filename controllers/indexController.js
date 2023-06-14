@@ -101,3 +101,18 @@ exports.createMessage = asyncHandler(async (req, res, next) => {
   await message.save();
   res.redirect("/");
 });
+
+exports.updateMembership = asyncHandler(async (req, res, next) => {
+  res.render("updateMembership", { user: req.user });
+});
+
+exports.updateMembershipPost = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  if (req.body.code === "Password123") {
+    user.memberStatus = "VIP";
+    await user.save();
+    res.redirect("/");
+  } else {
+    res.redirect("/");
+  }
+});

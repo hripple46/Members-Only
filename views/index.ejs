@@ -24,12 +24,22 @@
     <a href="/user/<%= user._id %>/newmessage">
       <button>Create Message</button></a
     >
-    <% for (let message of messages) { %>
+    <% if (user.memberStatus !== "VIP") { %>
+    <a href="/user/<%= user._id %>/updateMembership"
+      ><p>Upgrade to VIP to see other users' names!</p></a
+    >
+    <% } %> <% for (let message of messages) { %> <% if (user.memberStatus ===
+    "VIP") { %>
     <div class="bg-sky-300 rounded-lg text-white mt-2 mb-2 p-2">
       <p><%= message.text %></p>
       <p><%= message.user.username %></p>
       <p><%= message.Date %></p>
     </div>
-    <% } %> <% } %>
+    <% } else { %>
+    <div class="bg-sky-300 rounded-lg text-white mt-2 mb-2 p-2">
+      <p><%= message.text %></p>
+      <p>Anonymous</p>
+    </div>
+    <% } %> <% } %> <% } %>
   </body>
 </html>
