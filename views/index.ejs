@@ -23,6 +23,10 @@
     <a href="/user/<%= user._id %>/newmessage">
       <button>Create Message</button></a
     >
-    <% } %>
+    <% for (let message of messages) { %>
+    <p><%= message.text %></p>
+    <p><%= message.user.username %></p>
+    <p><%= message.Date %></p>
+    <% } %> <% } %>
   </body>
 </html>

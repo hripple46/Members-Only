@@ -6,13 +6,19 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const express = require("express");
 const router = express.Router();
+const Message = require("../models/message");
 
 exports.index = asyncHandler(async (req, res, next) => {
   console.log("indexController.index");
+  const messages = await Message.find();
+  for (let message of messages) {
+    console.log(message);
+  }
   res.render("index", {
     title: "Message Board",
     body: "This is the home page",
     user: req.user,
+    messages: messages,
   });
 });
 
@@ -87,4 +93,12 @@ exports.newMessage = asyncHandler(async (req, res, next) => {
 
 exports.createMessage = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.user.id);
+  let newDate = new Date();
+  const message = new Message({
+    text: req.body.text,
+    user: user,
+    Date: newDate,
+  });
+  await message.save();
+  res.redirect("/");
 });
