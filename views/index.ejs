@@ -9,21 +9,31 @@
   </head>
   <body>
     <% if (!user) { %>
-    <a href="/user/create"> <button>Create Account</button></a>
-    <a href="/user/login"> <button>Login</button></a>
-    <h1><%= title %></h1>
-    <p><%= body %></p>
+    <div class="flex justify-evenly">
+      <a href="/user/create">
+        <button class="bg-amber-300 rounded-lg p-2">Create Account</button></a
+      >
+      <a href="/user/login">
+        <button class="bg-green-200 rounded-lg p-2">Login</button></a
+      >
+    </div>
     <% } else { %>
-    <h1>
-      Greetings, <% if (user.firstName) { %><%= user.firstName %><% } else {
-      %><%= user.username %><% } %>
-    </h1>
+    <div class="flex justify-evenly">
+      <h1 class="p-2">
+        Greetings, <% if (user.firstName) { %><%= user.firstName %><% } else {
+        %><%= user.username %><% } %>
+      </h1>
 
-    <p>Membership Level: <%= user.memberStatus %></p>
-    <a href="/user/logout"> <button>Logout</button></a>
-    <a href="/user/<%= user._id %>/newmessage">
-      <button>Create Message</button></a
-    >
+      <p class="bg-amber-300 rounded-lg p-2">
+        Membership Level: <%= user.memberStatus %>
+      </p>
+      <a href="/user/logout">
+        <button class="bg-red-200 rounded-lg p-2">Logout</button></a
+      >
+      <a href="/user/<%= user._id %>/newmessage">
+        <button class="bg-green-200 rounded-lg p-2">Create Message</button></a
+      >
+    </div>
     <% if (user.memberStatus !== "VIP") { %>
     <a href="/user/<%= user._id %>/updateMembership"
       ><p>Upgrade to VIP to see other users' names!</p></a

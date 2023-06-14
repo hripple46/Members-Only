@@ -530,8 +530,31 @@ video {
   margin-top: 0.5rem;
 }
 
+.flex {
+  display: flex;
+}
+
+.justify-evenly {
+  justify-content: space-evenly;
+}
+
 .rounded-lg {
   border-radius: 0.5rem;
+}
+
+.bg-amber-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(252 211 77 / var(--tw-bg-opacity));
+}
+
+.bg-green-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(187 247 208 / var(--tw-bg-opacity));
+}
+
+.bg-red-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 202 202 / var(--tw-bg-opacity));
 }
 
 .bg-sky-300 {
