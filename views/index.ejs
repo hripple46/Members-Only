@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./output.css" rel="stylesheet" />
     <title><%= title %></title>
   </head>
   <body>
@@ -24,9 +25,11 @@
       <button>Create Message</button></a
     >
     <% for (let message of messages) { %>
-    <p><%= message.text %></p>
-    <p><%= message.user.username %></p>
-    <p><%= message.Date %></p>
+    <div class="bg-sky-300 rounded-lg text-white mt-2 mb-2 p-2">
+      <p><%= message.text %></p>
+      <p><%= message.user.username %></p>
+      <p><%= message.Date %></p>
+    </div>
     <% } %> <% } %>
   </body>
 </html>

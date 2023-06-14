@@ -10,10 +10,9 @@ const Message = require("../models/message");
 
 exports.index = asyncHandler(async (req, res, next) => {
   console.log("indexController.index");
-  const messages = await Message.find();
-  for (let message of messages) {
-    console.log(message);
-  }
+  const messageArray = [];
+  const messages = await Message.find().populate("user");
+
   res.render("index", {
     title: "Message Board",
     body: "This is the home page",
