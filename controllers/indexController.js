@@ -9,6 +9,7 @@ const router = express.Router();
 const Message = require("../models/message");
 const { body, validationResult } = require("express-validator");
 const e = require("express");
+const bcrypt = require("bcryptjs");
 
 exports.index = asyncHandler(async (req, res, next) => {
   console.log("indexController.index");
@@ -32,19 +33,24 @@ exports.createUser = [
     .trim()
     .isLength({ min: 1 })
     .escape(),
-  body("password", "Password must not be empty").trim().isLength({ min: 1 }),
+  body("password", "Password must not be empty")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
   asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       res.render("create", { errors: errors.array() });
     } else {
-      const user = new User({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        username: req.body.username,
-        password: req.body.password,
+      bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
+        const user = new User({
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          username: req.body.username,
+          password: hashedPassword,
+        });
+        await user.save();
       });
-      await user.save();
       res.redirect("/");
     }
   }),
@@ -61,10 +67,13 @@ passport.use(
       if (!user) {
         return done(null, false, { message: "Incorrect username" });
       }
-      if (user.password !== password) {
-        return done(null, false, { message: "Incorrect password" });
-      }
-      return done(null, user);
+      bcrypt.compare(password, user.password, (err, res) => {
+        if (res) {
+          return done(null, user);
+        } else {
+          return done(null, false, { message: "Incorrect password" });
+        }
+      });
     } catch (err) {
       return done(err);
     }
