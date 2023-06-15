@@ -7,6 +7,8 @@ const LocalStrategy = require("passport-local").Strategy;
 const express = require("express");
 const router = express.Router();
 const Message = require("../models/message");
+const { body, validationResult } = require("express-validator");
+const e = require("express");
 
 exports.index = asyncHandler(async (req, res, next) => {
   console.log("indexController.index");
@@ -22,19 +24,31 @@ exports.index = asyncHandler(async (req, res, next) => {
 });
 
 exports.create = asyncHandler(async (req, res) => {
-  res.render("create");
+  res.render("create", { errors: [] });
 });
 
-exports.createUser = asyncHandler(async (req, res) => {
-  const user = new User({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    username: req.body.username,
-    password: req.body.password,
-  });
-  await user.save();
-  res.redirect("/");
-});
+exports.createUser = [
+  body("username", "Username must not be empty.")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("password", "Password must not be empty").trim().isLength({ min: 1 }),
+  asyncHandler(async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.render("create", { errors: errors.array() });
+    } else {
+      const user = new User({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        username: req.body.username,
+        password: req.body.password,
+      });
+      await user.save();
+      res.redirect("/");
+    }
+  }),
+];
 
 exports.login = async (req, res, next) => {
   res.render("login");
